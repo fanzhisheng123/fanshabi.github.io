@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阶段6：简易计算器</title>
+    <style>
+        #calc {
+            width: 240px;
+            border: 2px solid #333;
+            padding: 10px;
+        }
+        #inputNum {
+            box-sizing: border-box;
+            width: 100%;
+            margin-bottom: 10px;
+            height: 30px;
+            font-size: 18px;
+            text-align: right;
+        }
+        button {
+            width: 50px;
+            height: 40px;
+            margin: 2px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div id="calc">
+        <input type="text" id="inputNum" readonly>
+        <br>
+        <button>1</button><button>2</button><button>3</button><button>+</button>
+        <br>
+        <button>4</button><button>5</button><button>6</button><button>-</button>
+        <br>
+        <button>7</button><button>8</button><button>9</button><button>=</button>
+        <br>
+        <button>0</button><button>C</button>
+    </div>
+    <h3>知识点：DOM事件委托、运算逻辑、字符串拼接、判断计算</h3>
+    <script>
+        let input = document.getElementById("inputNum");
+        let btns = document.querySelectorAll("button");
+
+        btns.forEach(item => {
+            item.addEventListener("click", function () {
+                let text = this.innerText;
+                // 清空按钮
+                if (text === "C") {
+                    input.value = "";
+                }
+                // 等于号计算
+                else if (text === "=") {
+                    try {
+                        // 禁止空表达式计算
+                        if (!input.value) return;
+                        // eval运算，捕获错误
+                        let result = eval(input.value);
+                        // 限制小数位数，避免超长小数
+                        input.value = Number(result.toFixed(6));
+                    } catch (err) {
+                        input.value = "输入错误";
+                    }
+                }
+                // 数字与运算符拼接
+                else {
+                    // 若上一次是错误提示，点击数字先清空
+                    if (input.value === "输入错误") {
+                        input.value = text;
+                    } else {
+                        input.value += text;
+                    }
+                }
+            })
+        })
+    </script>
+</body>
+</html>
