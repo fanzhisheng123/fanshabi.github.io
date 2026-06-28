@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>v3：函数封装练习</title>
+</head>
+<body>
+    <h3>知识点：函数声明、形参实参、return返回、匿名函数</h3>
+    <script>
+        // 1.普通函数：计算两数之和
+        function sum(num1, num2) {
+            return num1 + num2;
+        }
+        let result = sum(8, 4);
+        console.log("相加结果：", result);
+
+        // 2.带判断的函数：判断数字奇偶
+        function checkOdd(n) {
+            if(n % 2 === 0) return "偶数";
+            return "奇数";
+        }
+        console.log(checkOdd(12));
+
+        // 3.匿名函数赋值
+        let sub = function(a, b) {
+            return a - b;
+        }
+        console.log(sub(30, 8));
+    </script>
+</body>
+</html>
