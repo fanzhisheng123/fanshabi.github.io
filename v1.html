@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>笔记本 1.0 | JS全套学习索引v版</title>
+    <style>
+        /* 原有弹窗样式完整保留 */
+        .toast {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background: #333;
+            color: #fff;
+            border-radius: 6px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 999;
+        }
+        .toast.show {
+            opacity: 1;
+        }
+
+        /* 全局统一样式，和所有作业页面风格对齐 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #f5f5f5;
+            font-family: "微软雅黑";
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 35px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px #ddd;
+        }
+
+        #appTitle {
+            text-align: center;
+            color: #222;
+            margin-bottom: 15px;
+        }
+
+        #noteDisplay {
+            margin: 20px 0;
+            font-size: 18px;
+            line-height: 1.8;
+            padding: 12px;
+            border-left: 4px solid #1a5298;
+            background: #f0f7ff;
+        }
+
+        h2 {
+            text-align: center;
+            color: #666;
+            margin: 30px 0;
+            font-size: 20px;
+        }
+
+        /* 导航菜单样式 */
+        .nav-title {
+            font-size: 20px;
+            color: #1a5298;
+            margin: 40px 0 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        li {
+            margin: 12px 0;
+            padding: 10px 14px;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            transition: 0.2s ease;
+        }
+
+        li:hover {
+            background: #f0f7ff;
+            border-color: #1a5298;
+        }
+
+        a {
+            text-decoration: none;
+            font-size: 17px;
+            color: #1a5298;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- 原有提示弹窗，逻辑不变 -->
+    <div class="toast" id="toast">锲而不舍，金石可镂</div>
+
+    <div class="container">
+        <h1 id="appTitle">我的JavaScript学习笔记本 v系列版本</h1>
+        <div id="noteDisplay">⭐ 本页面为全套JS v系列课程索引，点击下方链接跳转对应练习页面，刷新页面数据不丢失</div>
+        <h2>悟已往之不谏，知来者之可追</h2>
+
+        <!-- v1~v10 课程导航 -->
+        <div class="nav-title">课程学习目录（v1~v10）</div>
+        <ul>
+            <li><a href="v1_basic_syntax.html">v1 JS基础语法</a></li>
+            <li><a href="v2_array_object.html">v2 数组与对象基础</a></li>
+            <li><a href="v3_function_study.html">v3 函数学习</a></li>
+            <li><a href="v4_dom_base.html">v4 DOM基础操作</a></li>
+            <li><a href="v5_form_event.html">v5 事件与表单交互</a></li>
+            <li><a href="v6_calculator.html">v6 简易计算器</a></li>
+            <li><a href="v7_localStorage.html">v7 localStorage本地存储</a></li>
+            <li><a href="v8_orient_object.html">v8 面向对象构造函数</a></li>
+            <li><a href="v9_async_timer.html">v9 定时器同步异步</a></li>
+            <li><a href="v10_weapon_library_final.html">v10 期末综合大作业：武器库信息展示</a></li>
+        </ul>
+    </div>
+
+    <script>
+        // 原有弹窗逻辑完整保留：2秒自动消失提示语
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 2000);
+    </script>
+</body>
+</html>
