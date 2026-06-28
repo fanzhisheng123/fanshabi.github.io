@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阶段7：本地存储练习</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #f5f5f5;
+            padding: 30px;
+            font-family: "微软雅黑";
+        }
+        h3 {
+            color: #1a5298;
+            margin: 20px 0 10px;
+        }
+        .operate-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px #ddd;
+            max-width: 520px;
+        }
+        input, button {
+            padding: 6px 10px;
+            font-size: 16px;
+            margin: 5px;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+        }
+        button {
+            background: #1a5298;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #144077;
+        }
+        #result {
+            color: #0066cc;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .tip {
+            margin-top: 15px;
+            padding: 10px 14px;
+            background: #fff;
+            border-left: 4px solid #1a5298;
+            max-width: 520px;
+        }
+    </style>
+</head>
+<body>
+    <div class="operate-box">
+        <input type="text" id="storageInput" placeholder="输入要保存的文字">
+        <button id="saveBtn">保存数据</button>
+        <button id="clearBtn">清空存储</button>
+        <p style="margin-top:12px;">已保存内容：<span id="result"></span></p>
+    </div>
+
+    <h3>知识点：localStorage.setItem/getItem/removeItem，页面刷新数据不丢失</h3>
+    <div class="tip">操作提示：保存文字后刷新页面，数据依然存在；空白内容禁止保存</div>
+
+    <script>
+        let inp = document.getElementById("storageInput");
+        let save = document.getElementById("saveBtn");
+        let clear = document.getElementById("clearBtn");
+        let res = document.getElementById("result");
+
+        // 页面加载读取本地存储
+        window.onload = function () {
+            let data = localStorage.getItem("userText");
+            res.innerText = data ?? "无数据";
+        }
+
+        // 回车快捷保存，和整套项目交互统一
+        inp.addEventListener("keydown", function(e) {
+            if (e.key === "Enter") save.click();
+        })
+
+        // 保存按钮点击事件
+        save.addEventListener("click", () => {
+            // 去除首尾空格
+            let content = inp.value.trim();
+            if (content === "") {
+                res.innerText = "不能保存空内容！";
+                res.style.color = "red";
+                return;
+            }
+            // 存入本地存储
+            localStorage.setItem("userText", content);
+            res.innerText = content;
+            res.style.color = "#0066cc";
+        })
+
+        // 清空按钮点击事件
+        clear.addEventListener("click", () => {
+            localStorage.removeItem("userText");
+            res.innerText = "无数据";
+            res.style.color = "#0066cc";
+            inp.value = "";
+        })
+    </script>
+</body>
+</html>
