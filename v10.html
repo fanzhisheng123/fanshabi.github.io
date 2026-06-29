@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>期末综合大作业：动漫角色信息展示</title>
+    <title>期末综合大作业：武器库信息展示</title>
     <style>
         * {
             margin: 0;
@@ -11,7 +11,7 @@
             box-sizing: border-box;
         }
         body {
-            background: #f5f7fa;
+            background: #f5f5f5;
             padding: 30px;
             font-family: "微软雅黑";
         }
@@ -21,7 +21,7 @@
             color: #222;
         }
         h3 {
-            color: #9131c7;
+            color: #1a5298;
             margin: 20px 0 10px;
         }
         .tip {
@@ -29,7 +29,7 @@
             margin: 0 auto 30px;
             padding: 10px 14px;
             background: #fff;
-            border-left: 4px solid #9131c7;
+            border-left: 4px solid #1a5298;
         }
         .wrap {
             max-width: 1200px;
@@ -38,22 +38,27 @@
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
         }
-        .role-card {
-            border: 1px solid #ccc;
+        .weapon-card {
+            border: 1px solid #222;
             padding: 18px;
             border-radius: 6px;
             background: #fff;
-            box-shadow: 2px 2px 6px #dde0e6;
+            box-shadow: 2px 2px 6px #ddd;
         }
-        .role-card h3 {
+        .weapon-card h3 {
             margin-bottom: 10px;
-            border-bottom: 1px solid #bbb;
+            border-bottom: 1px solid #999;
             padding-bottom: 6px;
-            color: #9131c7;
+            color: #1a5298;
         }
-        .role-card p {
+        .weapon-card p {
             line-height: 1.6;
             color: #444;
+            margin: 6px 0;
+        }
+        .damage {
+            color: #c82423;
+            font-weight: bold;
         }
         .search-box {
             width: 400px;
@@ -72,12 +77,12 @@
             padding: 8px 16px;
             cursor: pointer;
             border: none;
-            background: #9131c7;
+            background: #1a5298;
             color: #fff;
             border-radius: 4px;
         }
         #searchBtn:hover {
-            background: #7627a3;
+            background: #144077;
         }
         .empty-tip {
             text-align: center;
@@ -89,68 +94,66 @@
     </style>
 </head>
 <body>
-    <h1>动漫角色信息查询系统（JS综合项目）</h1>
-    <div class="tip">知识点：数组对象、DOM动态渲染、数组filter模糊搜索、键盘回车交互</div>
+    <h1>武器库信息简介系统（JS综合项目）</h1>
+    <div class="tip">知识点：数组对象、DOM动态渲染、数组filter模糊搜索、键盘回车交互、武器名称匹配伤害数值</div>
 
     <div class="search-box">
-        <input type="text" id="search" placeholder="输入角色名称搜索">
+        <input type="text" id="search" placeholder="输入武器名称搜索">
         <button id="searchBtn">搜索</button>
     </div>
     <div class="wrap" id="container"></div>
 
     <script>
-        // 1.动漫角色数据源（数组对象）
-        const roleList = [
-            {name:"路飞",desc:"《海贼王》主角，橡胶果实能力者，梦想成为海贼王，性格乐观热血。"},
-            {name:"鸣人",desc:"《火影忍者》主角，漩涡一族后裔，体内封印九尾，立志成为火影。"},
-            {name:"桐谷和人",desc:"《刀剑神域》主角，游戏高手，擅长单手剑，守护身边的伙伴。"},
-            {name:"五条悟",desc:"《咒术回战》最强咒术师，拥有无下限术式，性格随性风趣。"},
-            {name:"炭治郎",desc:"《鬼灭之刃》主角，温柔善良，为治愈妹妹踏上斩鬼之路。"}
+        // 每条武器名称对应专属伤害数值，一一对应
+        const weaponList = [
+            {name:"AK-47突击步枪",desc:"苏联经典枪械，适应各类恶劣环境，可靠性极强。",damage:48},
+            {name:"95式自动步枪",desc:"国产无托制式步枪，轻便紧凑，适配国内作战环境。",damage:42},
+            {name:"AWM狙击枪",desc:"高精度远距离栓动狙击武器，多用于精准远距离打击。",damage:132},
+            {name:"M4A1卡宾枪",desc:"美军主流装备，模块化改装空间大，后坐力低。",damage:38},
+            {name:"RPG-7火箭筒",desc:"便携式反坦克武器，可打击装甲与工事目标。",damage:210}
         ];
 
         const container = document.getElementById("container");
         const searchInp = document.getElementById("search");
         const searchBtn = document.getElementById("searchBtn");
 
-        // 2.渲染角色卡片函数
+        // 渲染卡片，同步展示对应武器数值
         function render(list) {
             container.innerHTML = "";
-            // 无匹配数据时展示提示
             if (list.length === 0) {
-                container.innerHTML = `<div class="empty-tip">未查询到匹配的角色信息</div>`;
+                container.innerHTML = `<div class="empty-tip">未查询到匹配的武器信息</div>`;
                 return;
             }
             list.forEach(item => {
                 let div = document.createElement("div");
-                div.className = "role-card";
+                div.className = "weapon-card";
                 div.innerHTML = `
                     <h3>${item.name}</h3>
                     <p>${item.desc}</p>
+                    <p class="damage">基础伤害数值：${item.damage}</p>
                 `;
                 container.appendChild(div);
             });
         }
 
-        // 初始渲染全部角色
-        render(roleList);
+        // 初始渲染全部武器
+        render(weaponList);
 
-        // 封装搜索逻辑
+        // 搜索逻辑，根据武器名匹配对应数据（含数值）
         function doSearch() {
             let key = searchInp.value.trim();
-            // 输入为空，展示全部数据
             if (!key) {
-                render(roleList);
+                render(weaponList);
                 return;
             }
-            // 模糊匹配筛选
-            let filterArr = roleList.filter(item => item.name.includes(key));
+            // 根据武器名称模糊匹配，匹配成功带出对应伤害数值
+            let filterArr = weaponList.filter(item => item.name.includes(key));
             render(filterArr);
         }
 
-        // 点击搜索按钮
+        // 点击搜索
         searchBtn.addEventListener("click", doSearch);
-
-        // 回车快捷键搜索
+        // 回车搜索
         searchInp.addEventListener("keydown", function (e) {
             if (e.key === "Enter") {
                 doSearch();
