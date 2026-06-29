@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阶段9：定时器异步</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #f5f5f5;
+            padding: 30px;
+            font-family: "微软雅黑";
+        }
+        .box-wrap {
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px #ddd;
+            max-width: 600px;
+        }
+        h3 {
+            color: #1a5298;
+            margin: 20px 0 10px;
+        }
+        #timeText {
+            font-size: 24px;
+            color: #d92121;
+            background: #fff;
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px #ddd;
+        }
+        .console-tip {
+            margin-top: 15px;
+            padding: 10px 14px;
+            background: #fff;
+            border-left: 4px solid #1a5298;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box-wrap">
+        <p id="timeText">倒计时：10</p>
+        <h3>知识点：同步异步、setInterval、setTimeout、清除定时器clearInterval</h3>
+    </div>
+    <div class="console-tip">提示：按F12打开浏览器控制台，查看同步/异步代码打印执行顺序</div>
+
+    <script>
+        // 获取元素
+        let text = document.getElementById("timeText");
+        // 元素不存在直接终止，防止报错
+        if (!text) return;
+
+        let count = 10;
+        // 开启循环倒计时定时器
+        let timer = setInterval(function () {
+            count--;
+            text.innerText = "倒计时：" + count;
+            if (count <= 0) {
+                clearInterval(timer);
+                text.innerText = "倒计时结束";
+            }
+        }, 1000);
+
+        // 3秒延时定时器（异步任务）
+        setTimeout(() => {
+            console.log("3秒后执行这段异步代码");
+        }, 3000);
+
+        // 同步代码最先执行
+        console.log("同步代码先执行");
+    </script>
+</body>
+</html>
